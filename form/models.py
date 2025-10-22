@@ -9,14 +9,14 @@ class M_form(models.Model):
         ('ID', 'Id'),
     )
 
-    name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    id_type = models.CharField(max_length=2, choices=ID_TYPE_CHOICES)
-    id_number = models.CharField(max_length=10)
-    credit_value = models.IntegerField()
-    interest = models.FloatField()
-    months = models.IntegerField()
-    adviser = models.CharField()
+    name = models.CharField(null=False, blank=False,max_length=35)
+    last_name = models.CharField(null=False, blank=False,max_length=35)
+    id_type = models.CharField(null=False, blank=False, choices=ID_TYPE_CHOICES)
+    id_number = models.IntegerField(null=False, blank=False,max_length=10, unique=True)
+    credit_value = models.IntegerField(null=False, blank=False)
+    interest = models.FloatField(null=False, blank=False)
+    months = models.IntegerField(null=False, blank=False)
+    adviser = models.CharField(null=False, blank=False, max_length=35)
     create_at = models.DateField(auto_now_add=True)
 
     class Meta:
