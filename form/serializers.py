@@ -19,6 +19,7 @@ class Sz_form_list(serializers.ModelSerializer):
     class Meta:
         model = M_form
         fields = [
+            'id',
             'name',
             'last_name',
             'id_number',

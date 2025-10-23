@@ -1,8 +1,9 @@
-from django.shortcuts import rend
+from django.shortcuts import render
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import api_view
 
 from django.db.models import Q
 
@@ -37,7 +38,7 @@ class V_form_create(CreateAPIView):
         return Response(error, status=status.HTTP_400_BAD_REQUEST)
     
 class V_form_list(ListAPIView):
-    serializer_class = Sz_form_create
+    serializer_class = Sz_form_list
     pagination_class = Limit_paginator
     
     def get_queryset(self):
@@ -71,3 +72,17 @@ class V_form_list(ListAPIView):
             queryset = queryset.order_by('-id')
 
         return queryset
+
+class V_form_retrieve(RetrieveAPIView):
+    serializer_class = Sz_form_retrieve
+    model_class = M_form
+    queryset = model_class.objects.all()
+
+
+@api_view(['GET'])    
+def get_choice(request):
+    id_type = dict(M_form.id_type_choice)
+    response = {
+        "id_type_choice":id_type
+    }
+    return Response(response, status=status.HTTP_200_OK)
